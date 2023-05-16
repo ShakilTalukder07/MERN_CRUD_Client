@@ -1,4 +1,6 @@
 import React from 'react';
+import { toast } from 'react-hot-toast';
+
 
 const Form = () => {
 
@@ -9,16 +11,33 @@ const Form = () => {
         const email = form.email.value;
         const number = form.number.value;
 
-        const booking = {
+        const items = {
             userName: name,
             userEmail: email,
             number,
         }
-        console.log(booking);
+        console.log(items);
+
+        fetch('http://localhost:5000/items', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(items)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data.acknowledged)
+                if (data.acknowledged) {
+                    toast.success("Items Added")
+                }
+            })
+
     }
 
     return (
         <div>
+            <h3>WEB FORM</h3>
             <form onSubmit={handleBooking} className='grid grid-cols-1 gap-2'>
                 <label className="label">
                     <span className="label-text">Your Name</span>
