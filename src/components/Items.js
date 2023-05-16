@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Items = () => {
 
@@ -10,9 +11,24 @@ const Items = () => {
             .then(data => setItems(data))
     }, [])
 
+    const handleDeleteItem = (item) => {
+        console.log(item);
+        fetch(`http://localhost:5000/items/${item._id}`, {
+            method: "DELETE",
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.deletedCount > 0) {
+                    toast.success('Product deleted successfully')
+                }
+            })
+    }
+
     return (
+
         <div>
-            <h3>List</h3>
+            <h3 className='font-bold text-3xl my-4'>List</h3>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     {/* head */}
@@ -31,8 +47,15 @@ const Items = () => {
                                 <th>{item.userName}</th>
                                 <td>{item.number}</td>
                                 <td>{item.userEmail}</td>
-                                <td>Blue</td>
-                                <td>Blue</td>
+                                <td>
+                                <button className="btn btn-outline btn-success">Edit</button>
+
+                                </td>
+                                <td>
+                                <button className="btn btn-outline btn-error"
+                                onClick={()=>handleDeleteItem(item)}
+                                >Delete</button>
+                                </td>
                             </tr>)
                         }
 
