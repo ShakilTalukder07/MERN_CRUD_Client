@@ -1,4 +1,5 @@
 import './App.css';
+import { Toaster } from 'react-hot-toast';
 import Form from './components/Form';
 import Items from './components/Items';
 
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <Form></Form>
       <Items></Items>
+      <Toaster></Toaster>
     </div>
   );
 }
