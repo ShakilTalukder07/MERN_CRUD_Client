@@ -1,6 +1,8 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
+import Modal from './Modal';
+import { Link } from 'react-router-dom';
 
 const Items = () => {
 
@@ -26,6 +28,10 @@ const Items = () => {
                     toast.success('Product deleted successfully')
                 }
             })
+    };
+
+    const handleUpdateItem = (item) => {
+
     }
 
     return (
@@ -46,12 +52,14 @@ const Items = () => {
                     </thead>
                     <tbody>
                         {
-                            items.length && items.map((item) =>  <tr key={item._id}>
+                            items.length && items.map((item) => <tr key={item._id}>
                                 <th>{item.userName}</th>
                                 <td>{item.number}</td>
                                 <td>{item.userEmail}</td>
                                 <td>
-                                    <button className="btn btn-outline btn-success">Edit</button>
+                                    <button className='btn btn-outline btn-success' type="submit" htmlFor="my-modal">
+                                        <label htmlFor="my-modal-3" className="todo-btn">Edit</label>
+                                    </button>
 
                                 </td>
                                 <td>
@@ -65,6 +73,7 @@ const Items = () => {
                     </tbody>
                 </table>
             </div>
+            <Modal></Modal>
         </div>
     );
 };
